@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    
+    @Html.Partial("_NavBarPartial")
+
+    <div class="big-banner">
+        <div class="big-banner-text">
+            <h1>Online Fundraising Platform</h1><br />
+            <h3>Tailored for you if you need <span class="strike-text">money</span> the <span class="green-colored-text">grinlight</span> to accomplish your goal.</h3>
+            <p> @Html.ActionLink("Start your campaign >>", "Create", "Campaigns", new { area = "" }, new { @class = "btn btn-success btn-lg" })</p>
+            @*<a href="http://asp.net" class="btn btn-success btn-lg">Start your campaign &raquo;</a>*@
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />      
+       
+    </div>
+
+    <div>
+        @Html.Partial("_FooterPartial")
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

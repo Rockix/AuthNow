@@ -1,0 +1,133 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.menu-green{
+    background-color: #4caf50;
+}
+
+
+.navbar a{
+     color: #ffffff;
+}
+
+.navbar-brand {    
+    background-color: #ff9800;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.6);
+}
+
+.big-banner{
+   
+    background-image: url(img/boa1.jpg);
+    background-size: 100%;
+    background-color: #00ff90;
+    height: 500px;
+}
+
+.big-banner-text{
+    width: 50%;
+    margin:auto;
+    padding: 80px 0;    
+    text-align: center;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.6);
+}
+
+.big-banner-text h1{
+   color:#f85812;
+}
+
+.big-banner-text h3{
+   color:#ffffff;
+}
+
+.big-banner img{
+    max-width: 100%;
+    height: auto;
+}
+
+.banner_overlay {
+    position: relative;
+}
+.banner_overlay:after {
+    position: absolute;
+    content: "";
+    background: rgba(0, 0, 0, 0.3);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.strike-text{
+    text-decoration:line-through;
+}
+
+.green-colored-text{
+    color: #4caf50;
+}
+
+.bordered-tik li a{
+    border-style: solid;
+}
+
+.fc-small {
+    border: 1px dotted #808080;
+    padding: 5px;
+}
+
+.fc-small-img img{
+    width: 100%;
+    height:auto;
+}
+
+.fc-small-content h6, p{
+    text-align:center;
+}
+
+.fc-small-content p{
+    font-weight:bold;
+    font-size:medium;
+}
+
+
+.footer-row{
+    padding-top: 50px;
+}
+
+.footer-row h6{
+    color: #ff9800;
+    font-weight: bold;
+    font-variant:small-caps;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.6);
+}
+
+.footer-row a, .glyphicon{
+    color: #ffffff;    
+}
+
+.footer-row ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
