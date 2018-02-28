@@ -32,6 +32,17 @@ namespace AuthNow.Controllers
         // GET: Campaigns
         public ActionResult Index()
         {
+            ViewBag.isAdmin = "False";
+            if (User.Identity.IsAuthenticated)
+            {               
+                               
+                if (isAdminUser())
+                {
+                    
+                    ViewBag.isAdmin = "True";
+                }
+                
+            }
             var campaigns = db.Campaigns.Include(c => c.Category);
             
             return View(campaigns.ToList());
@@ -40,18 +51,20 @@ namespace AuthNow.Controllers
         // GET: Campaigns/Details/5
         public ActionResult Details(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Campaign campaign = db.Campaigns.Include(c => c.Category).Where(x=>x.CampaignId == id).FirstOrDefault();
-            
+            Campaign campaign = db.Campaigns.Include(c => c.Category).Where(x=>x.CampaignId == id).Include(u => u.User).Where(x => x.CampaignId == id).FirstOrDefault();
+            TimeSpan noOfDays =  campaign.EndDate - DateTime.Now;
+            ViewBag.DaysLeft = noOfDays.Days > 0 ? noOfDays.Days : 0;
             if (campaign == null)
             {
                 return HttpNotFound();
             }
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            campaign.User = user;
+            //var user = UserManager.FindById(User.Identity.GetUserId());
+            //campaign.User = user;
             return View(campaign);
         }
 
@@ -60,6 +73,7 @@ namespace AuthNow.Controllers
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "name");
+
             return View();
         }
 
@@ -69,12 +83,14 @@ namespace AuthNow.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CampaignId,Title,Description,Target,City,Country,StartDate,EndDate,DateCreated,CategoryId")] Campaign campaign)
+        public ActionResult Create([Bind(Include = "CampaignId,Title,Description,Target,City,Country,StartDate,EndDate,CategoryId")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
                 var user = UserManager.FindById(User.Identity.GetUserId());
                 campaign.User = user;
+                campaign.CurrentAmount = 0;
+                campaign.DateCreated = DateTime.Now;
                 db.Campaigns.Add(campaign);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -150,6 +166,26 @@ namespace AuthNow.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public Boolean isAdminUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                var s = UserManager.GetRoles(user.GetUserId());
+                if (s[0].ToString() == "Admin")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace AuthNow.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public decimal Target { get; set; }
+        public decimal? CurrentAmount { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
         [Display(Name = "Start Date")]

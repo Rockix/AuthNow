@@ -168,12 +168,16 @@ namespace AuthNow.Controllers
                     }
                 }
 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
 
                 //Here we pass the byte array to user context to store in db
-                user.UserPhoto = imageData;
+                user.UserPhoto = imageData;                
 
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                //give user viewer role
+                var result1 = UserManager.AddToRole(user.Id, "Viewer");
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);

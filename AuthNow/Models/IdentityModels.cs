@@ -18,6 +18,9 @@ namespace AuthNow.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -35,5 +38,10 @@ namespace AuthNow.Models
         public System.Data.Entity.DbSet<AuthNow.Models.Category> Categories { get; set; }
 
         public System.Data.Entity.DbSet<AuthNow.Models.Campaign> Campaigns { get; set; }
+
+        public System.Data.Entity.DbSet<AuthNow.Models.Donor> Donors { get; set; }
+
+        public System.Data.Entity.DbSet<AuthNow.Models.Transaction> Transactions { get; set; }
+
     }
 }

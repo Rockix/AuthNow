@@ -1,4 +1,5 @@
-﻿
+﻿@model AuthNow.Models.UserViewModels
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AuthUsersLayoutPage.cshtml";
@@ -63,12 +64,22 @@
             </div><!-- /.modal -->
         </div>
         <div class="col-md-8">
-            <h2>Welcome @ViewBag.Name</h2>
+            <h2>@ViewBag.Name  @Model.User.Email</h2>
+            Campaigns : @Model.Campaigns.Count()
         </div>
         
     </div>
+    <div>
 
-    
+        @if (Model.Campaigns.Count() != 0)
+        {
+            foreach(var campaign in Model.Campaigns)
+            {
+                <p> @campaign.Title </p>
+            }
+        }
+
+    </div>
 </div>
 
 

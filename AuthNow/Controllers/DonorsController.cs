@@ -10,109 +10,107 @@ using AuthNow.Models;
 
 namespace AuthNow.Controllers
 {
-    public class CategoriesController : Controller
+    public class DonorsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Categories
+        // GET: Donors
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            return View(db.Donors.ToList());
         }
 
-        // GET: Categories/Details/5
+        // GET: Donors/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            Donor donor = db.Donors.Find(id);
+            if (donor == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(donor);
         }
 
-        // GET: Categories/Create
-        //[Authorize(Roles ="Admin")]
+        // GET: Donors/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Donors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryId,name")] Category category)
+        public ActionResult Create([Bind(Include = "DonorId,FirstName,LastName")] Donor donor)
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                db.Donors.Add(donor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            return View(donor);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Donors/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            Donor donor = db.Donors.Find(id);
+            if (donor == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(donor);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Donors/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryId,name")] Category category)
+        public ActionResult Edit([Bind(Include = "DonorId,FirstName,LastName")] Donor donor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                db.Entry(donor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return View(donor);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Donors/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            Donor donor = db.Donors.Find(id);
+            if (donor == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(donor);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Donors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
+            Donor donor = db.Donors.Find(id);
+            db.Donors.Remove(donor);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

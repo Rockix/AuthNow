@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -22,15 +23,35 @@ namespace AuthNow.Controllers
         }
 
         // GET: users/id
-        public ActionResult Index()
+        [Route("users/{id}")]
+        public ActionResult Index(string id)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = User.Identity;
-                ViewBag.Name = user.GetUserName();
-            }
+            UserViewModels UserView = new UserViewModels();
 
-            return View();
+            if (!String.IsNullOrWhiteSpace(id)) {
+                ApplicationUser user = db.Users.Find(id);
+
+                ViewBag.Name = user.UserName;
+
+                IEnumerable<Campaign> campaigns = db.Campaigns.AsEnumerable().Where(x => x.User == user);
+
+                UserView.User = user;
+                UserView.Campaigns = campaigns;
+                //campaigns.ToList();
+                return View(UserView);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    //var user = User.Identity;
+            //    //ViewBag.Name = user.GetUserName();
+            //}
+
+           
         }
 
         public FileContentResult UserPhotos()

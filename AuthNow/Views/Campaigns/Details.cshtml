@@ -1,8 +1,170 @@
 ﻿@model AuthNow.Models.Campaign
 
 @{
+    Layout = "~/Views/Shared/_AuthUsersLayoutPage.cshtml";
     ViewBag.Title = "Details";
+    ViewBag.Diff = (Model.CurrentAmount / Model.Target) * 100;
+    ViewBag.PBar= @ViewBag.Diff + "%";
+
 }
+
+
+<div class="container">
+    <div class="row camp-title">
+        <h2 style="text-align:center;">@Model.Title </h2>
+        
+    </div>
+    <div class="row camp-pic">
+        <div class="col-md-7">
+            <img src="~/Content/img/boa2.jpg" style="width:100%;height:auto"/>
+            @*<img src="@Url.Action("UserPhotos", "Home" )" style="width:100%;height:auto" />*@
+        </div>
+        <div class="col-md-5 ">
+            <div class="camp-current-amt">
+                <h2> GHS @Model.CurrentAmount</h2>
+            </div>
+            <div class="fc-small-pbar">
+
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.PBar;">
+
+                        95%
+                    </div>
+                </div>
+
+                <div class="col-md-6 camp-goal">
+                    Goal: GHS @Model.Target
+                </div>
+                <div class="col-md-6 camp-days">
+                    Days left: @ViewBag.DaysLeft
+
+                </div>
+
+
+                <div class="camp-donor-no">
+                    <h2>9</h2>
+                    <p style="text-align: left">Donor(s)</p>
+                </div>
+            </div>
+
+            <div>
+                @Html.ActionLink("Please Donate", "Create/"+Model.CampaignId, "Transactions", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-success btn-lg btn-block" })
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row camp-desc">
+        <div class="col-md-8">
+            <h2>@Html.ActionLink(@Model.User.UserName, "", "users", routeValues: new { id = @Model.User.Id }, htmlAttributes: new { id = "userLink" })</h2>
+            @*<h2>@Html.ActionLink(@Model.User.UserName, "users", new { id = @Model.User.Id })</h2>*@
+            <p style="text-align: right; text-transform:capitalize; font-style:italic; font-size: 12px">@Model.City, @Model.Country</p>
+            <p style="text-align:justify">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae odit iste exercitationem praesentium deleniti nostrum
+                laborum rem id nihil tempora. Adipisci ea commodi unde nam placeat cupiditate quasi a ducimus rem consequuntur ex eligendi minima
+                voluptatem assumenda voluptas quidem sit maiores odio velit voluptate
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h5>Recent Donations</h5>
+            <div class="row">
+
+                <div class="camp-recent-donation">
+                    <div class="camp-donor-info">
+                        <div class="col-md-3">
+                            <img src="@Url.Action("UserPhotos", "Home" )" height="48" width="48" style="margin: auto;
+                        -moz-border-radius: 60px;
+                        border-radius: 100px;
+                        padding: 3px;
+                        box-shadow: 0px 0px 20px #888;" />
+                        </div>
+                        <div class="col-md-9">
+                            <div><h5>GHS 80</h5></div>
+                            <div>Full name</div>
+                            <div><p>5 hours ago</p></div>
+                        </div>
+                    </div>
+
+                    <div class="camp-donor-info">
+                        <div class="col-md-3">
+                            <img src="@Url.Action("UserPhotos", "Home" )" height="48" width="48" style="margin: auto;
+                        -moz-border-radius: 60px;
+                        border-radius: 100px;
+                        padding: 3px;
+                        box-shadow: 0px 0px 20px #888;" />
+                        </div>
+                        <div class="col-md-9">
+                            <div><h5>GHS 80</h5></div>
+                            <div>Full name</div>
+                            <div><p>5 hours ago</p></div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <img src="@Url.Action("UserPhotos", "Home" )" height="48" width="48" style="margin: auto;
+                        -moz-border-radius: 60px;
+                        border-radius: 100px;
+                        padding: 3px;
+                        box-shadow: 0px 0px 20px #888;" />
+                    </div>
+                    <div class="col-md-9">
+                        <div><h5>GHS 80</h5></div>
+                        <div>Full name</div>
+                        <div><p>5 hours ago</p></div>
+                    </div>
+
+
+
+                    <div class="col-md-3">
+                        <img src="@Url.Action("UserPhotos", "Home" )" height="48" width="48" style="margin: auto;
+                        -moz-border-radius: 60px;
+                        border-radius: 100px;
+                        padding: 3px;
+                        box-shadow: 0px 0px 20px #888;" />
+                    </div>
+                    <div class="col-md-9">
+                        <div><h5>GHS 80</h5></div>
+                        <div>Full name</div>
+                        <div><p>5 hours ago</p></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation" class="active"><a data-toggle="tab" href="#about">About</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#updates">Updates</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#comments">Comments</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#donors">Donors</a></li>
+        </ul>
+    
+
+    <div class="tab-content">
+        <div id="about" class="tab-pane fade in active">
+            <h3>About Campaign</h3>
+            <p>Some content.</p>
+        </div>
+        <div id="updates" class="tab-pane fade">
+            <h3>Updates</h3>
+            <p>This campaign has no updates yet.</p>
+        </div>
+        <div id="comments" class="tab-pane fade">
+            <h3>Comments</h3>
+            <p>No comments yet.</p>
+        </div>
+        <div id="donors" class="tab-pane fade">
+            <h3>Donors</h3>
+            <p>Be the first to donate.</p>
+        </div>
+    </div>
+
+</div>
+
 
 <h2>Details</h2>
 

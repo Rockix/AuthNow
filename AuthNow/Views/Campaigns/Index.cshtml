@@ -4,82 +4,156 @@
     ViewBag.Title = "Index";
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Target)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Target)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Country)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CampaignId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CampaignId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CampaignId })
-        </td>
-    </tr>
+
+@if (ViewBag.isAdmin == "true")
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Target)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Target)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CampaignId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CampaignId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CampaignId })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
+else
+{
+    <div class="row">
+        if you told the truth you wouldnt have to have a good memory I draw inspiration outta hate
+Real pain in the paper, I don't trace U might wake up blind tomorrow. Nothing is promised﻿
+        @foreach (var item in Model)
+        {
+            TimeSpan DaysLeft = item.EndDate - DateTime.Now;
+            var days = DaysLeft.Days > 0 ? DaysLeft.Days : 0;
+
+            ViewBag.Diff = (item.CurrentAmount / item.Target) * 100;
+            ViewBag.Bag = @ViewBag.Diff + "%";
+            <div class="col-md-3" style="margin-bottom: 20px;">
+                <div class="fc-small">
+                    <div class="fc-small-category">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        @item.Category.name
+                    </div>
+                    <div class="fc-small-img">
+                        <a href="">
+                            <img src="~/Content/img/boa2.jpg" />
+                        </a>
+                    </div>
+                    <div class="fc-small-content">
+
+                        <h6>@Html.ActionLink(@item.Title, "Details", new { id = item.CampaignId }) </h6>
+                        @*<p>@item.User.UserName</p>*@
+                        <p>GHS @item.CurrentAmount</p>
+                    </div>
+                    <div class="fc-small-pbar">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.Bag">
+
+                                30%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fc-small-info">
+                        <table class="table">
+                            <tr>
+                                <td>Goal</td>
+                                <td style="text-align: right">GHS @item.Target</td>
+                            </tr>
+                            <tr>
+                                <td>Days Left</td>
+                                <td style="text-align: right">@days </td>
+                            </tr>
+                        </table>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+
 }
 
-</table>
+
+
+
